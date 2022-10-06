@@ -1,28 +1,72 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    全选 <input type="checkbox" v-model="isAll"><button>反选</button>
+    <ul>
+      <li v-for="item in person" :key="item.name">
+        <input type="checkbox" v-model="item.checked">{{item.name}}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      person: [
+        {
+          name: '悟空',
+          checked: false
+        },
+        {
+          name: '八戒',
+          checked: false
+        }, {
+          name: '砂层',
+          checked: false
+        }, {
+          name: '白龙',
+          checked: false
+        },
+      ]
+    }
+  },
+  computed: {
+    isAll: {
+      get() {
+        let all;
+        this.person.forEach((item) => {
+          if (item.checked === false) {
+            all = false
+          }
+        })
+        if (all === undefined) {
+          return true
+        }
+        else {
+          return false
+        }
+      },
+      set(value) {
+        this.person.forEach((i) => {
+          i.checked = value
+        })
+      }
+
+    }
+
+  },
+  methods: {
+    for() {
+      this.person.forEach((item) => {
+        item.name
+      })
+    }
   }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
